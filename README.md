@@ -8,11 +8,13 @@
 [![CI workflow](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Not%20specified-lightgrey)](#license)
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shubham94119/signalforge)
-
 <p align="center">
-  <img src="./public/screenshots/dashboard.png" alt="SignalForge incident room dashboard showing grounded triage, evidence, timeline, and service impact" width="100%" />
+  <a href="https://signalforge-web-0b0l.onrender.com/" target="_blank" rel="noreferrer">
+    <img src="./public/screenshots/dashboard.png" alt="Open the live SignalForge incident room dashboard" width="100%" />
+  </a>
 </p>
+
+<p align="center"><a href="https://signalforge-web-0b0l.onrender.com/">Live demo: signalforge-web-0b0l.onrender.com</a></p>
 
 ## The problem
 
@@ -212,7 +214,7 @@ The repository includes a [`render.yaml`](render.yaml) Blueprint for the selecte
 - deterministic answerer: enabled by leaving `MODEL_ENDPOINT` unset
 - SQLite demo database: stored in the service filesystem for a lightweight demo
 
-You can use the **Deploy to Render** button above or create a new Blueprint from this repository in Render. The static-site build writes `SIGNALFORGE_API_BASE` into `apps/web/config.js` so browser requests reach the API service. If you use a custom API domain, update that environment variable in the `signalforge-web` service.
+The static-site build writes `SIGNALFORGE_API_BASE` into `apps/web/config.js` so browser requests reach the API service. If you use a custom API domain, update that environment variable in the `signalforge-web` service.
 
 > The Render Blueprint is intentionally a staging/demo deployment. Render free instances and local SQLite are not durable production storage. A production rollout still requires the managed PostgreSQL adapter, OIDC authentication, persistent data/retention controls, and the approvals listed in the [completion matrix](docs/COMPLETION_MATRIX.md).
 
