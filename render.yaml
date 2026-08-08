@@ -23,7 +23,6 @@ services:
   - type: web
     name: signalforge-web
     runtime: static
-    plan: free
     buildCommand: python scripts/render_build_web.py
     staticPublishPath: ./apps/web
     autoDeployTrigger: commit
