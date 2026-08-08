@@ -29,4 +29,4 @@ services:
     envVars:
       # Keep this in sync if the API service receives a custom Render domain.
       - key: SIGNALFORGE_API_BASE
-        value: https://signalforge-api.onrender.com
+        value: https://signalforge-api-tpk4.onrender.com
