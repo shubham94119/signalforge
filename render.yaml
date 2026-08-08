@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: signalforge-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.api
+    healthCheckPath: /readyz
+    autoDeployTrigger: commit
+    envVars:
+      # This is a hosted demo configuration. Production requires OIDC and a
+      # durable database, which are intentionally not enabled here.
+      - key: APP_ENV
+        value: staging
+      - key: AUTH_MODE
+        value: local
+      - key: DEMO_SEED
+        value: "1"
+      - key: INCIDENT_DB_PATH
+        value: /tmp/signalforge-evidence.db
+      - key: UI_ORIGIN
+        value: https://signalforge-web.onrender.com
+
+  - type: web
+    name: signalforge-web
+    runtime: static
+    plan: free
+    buildCommand: python scripts/render_build_web.py
+    staticPublishPath: ./apps/web
+    autoDeployTrigger: commit
+    envVars:
+      # Keep this in sync if the API service receives a custom Render domain.
+      - key: SIGNALFORGE_API_BASE
+        value: https://signalforge-api.onrender.com

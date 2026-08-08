@@ -8,6 +8,8 @@
 [![CI workflow](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Not%20specified-lightgrey)](#license)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shubham94119/signalforge)
+
 <p align="center">
   <img src="./public/screenshots/dashboard.png" alt="SignalForge incident room dashboard showing grounded triage, evidence, timeline, and service impact" width="100%" />
 </p>
@@ -136,6 +138,7 @@ The two screenshots above are included in the repository. Add the following GitH
 ├── docs/                    # BRD, implementation plan, completion matrix
 ├── evals/datasets/          # Versioned evaluation fixtures
 ├── public/screenshots/      # README screenshots
+├── render.yaml              # Render demo deployment Blueprint
 ├── scripts/                 # Windows startup and test helpers
 ├── src/incident_intelligence/
 │   ├── ingestion.py         # Evidence ingestion, redaction, tombstones
@@ -199,6 +202,21 @@ docker compose up --build
 ```
 
 Docker exposes the API on port `8000` and serves the UI through Nginx on port `5173`. The Compose file mounts `./data` for the SQLite evidence database.
+
+### Deploy the hosted demo to Render
+
+The repository includes a [`render.yaml`](render.yaml) Blueprint for the selected demo topology:
+
+- `signalforge-api`: Docker-based Render Web Service on `/readyz`
+- `signalforge-web`: Render Static Site served from `apps/web`
+- deterministic answerer: enabled by leaving `MODEL_ENDPOINT` unset
+- SQLite demo database: stored in the service filesystem for a lightweight demo
+
+You can use the **Deploy to Render** button above or create a new Blueprint from this repository in Render. The static-site build writes `SIGNALFORGE_API_BASE` into `apps/web/config.js` so browser requests reach the API service. If you use a custom API domain, update that environment variable in the `signalforge-web` service.
+
+> The Render Blueprint is intentionally a staging/demo deployment. Render free instances and local SQLite are not durable production storage. A production rollout still requires the managed PostgreSQL adapter, OIDC authentication, persistent data/retention controls, and the approvals listed in the [completion matrix](docs/COMPLETION_MATRIX.md).
+
+Render Blueprint reference: [render.yaml](render.yaml).
 
 ## Configuration
 
