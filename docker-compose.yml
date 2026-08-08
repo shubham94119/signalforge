@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    env_file:
+      - .env
+    environment:
+      PYTHONPATH: /app/src
+      INCIDENT_DB_PATH: /data/evidence.db
+      MODEL_ENDPOINT: ${MODEL_ENDPOINT:-http://host.docker.internal:11434/v1/chat/completions}
+    volumes:
+      - ./data:/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/readyz', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  web:
+    image: nginx:1.27-alpine
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - ./apps/web:/usr/share/nginx/html:ro
+    ports:
+      - "5173:80"

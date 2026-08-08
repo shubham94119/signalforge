@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1017" />
+    <title>SignalForge — Incident Intelligence</title>
+    <link rel="stylesheet" href="styles.css?v=20260808-3d" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-lockup">
+          <div class="brand-mark"><span></span><span></span><span></span></div>
+          <div>
+            <div class="brand-name">SignalForge<span>·</span></div>
+            <div class="brand-subtitle">incident intelligence</div>
+          </div>
+        </div>
+
+        <div class="workspace-picker">
+          <div class="workspace-avatar">AC</div>
+          <div class="workspace-copy">
+            <span>Acme Cloud</span>
+            <small>Production workspace</small>
+          </div>
+          <button class="icon-button subtle" aria-label="Switch workspace">⌄</button>
+        </div>
+
+        <nav class="main-nav" aria-label="Primary navigation">
+          <button class="nav-item active" data-view="Incident room">
+            <span class="nav-icon">⌁</span><span>Incident room</span><span class="nav-count">1</span>
+          </button>
+          <button class="nav-item" data-view="Evidence explorer">
+            <span class="nav-icon">⌕</span><span>Evidence explorer</span>
+          </button>
+          <button class="nav-item" data-view="Service map">
+            <span class="nav-icon">◈</span><span>Service map</span>
+          </button>
+          <button class="nav-item" data-view="Evaluation lab">
+            <span class="nav-icon">◌</span><span>Evaluation lab</span>
+          </button>
+        </nav>
+
+        <div class="nav-label">OPERATIONS</div>
+        <nav class="main-nav" aria-label="Operations navigation">
+          <button class="nav-item" data-view="Connectors">
+            <span class="nav-icon">⇄</span><span>Connectors</span><span class="status-dot"></span>
+          </button>
+          <button class="nav-item" data-view="Runbooks">
+            <span class="nav-icon">▤</span><span>Runbooks</span>
+          </button>
+          <button class="nav-item" data-view="Settings">
+            <span class="nav-icon">⚙</span><span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+        <div class="privacy-note">
+          <span class="shield-icon">♢</span>
+          <div><strong>ACL-aware by default</strong><small>Evidence is filtered before it reaches the model.</small></div>
+        </div>
+        <div class="user-card" id="userCard">
+          <div class="user-avatar" id="userAvatar">AM</div>
+          <div class="user-copy"><strong id="userName">Alex Morgan</strong><small id="userRole">Incident commander</small></div>
+          <button class="icon-button subtle user-menu-trigger" id="userMenuButton" aria-label="Open user menu" aria-expanded="false" aria-controls="userMenu">•••</button>
+          <div class="user-menu" id="userMenu" role="menu" hidden>
+            <div class="user-menu-profile"><div class="user-avatar" id="menuUserAvatar">AM</div><div><strong id="menuUserName">Alex Morgan</strong><small id="menuUserRole">Incident commander · On call</small></div></div>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item" data-user-action="switch-commander" role="menuitem"><span>⇄</span>Switch incident commander <b>›</b></button>
+            <div class="commander-picker" id="commanderPicker" hidden>
+              <button class="commander-option active" data-commander="alex"><span class="commander-avatar alex">AM</span><span><strong>Alex Morgan</strong><small>Incident commander</small></span><i>✓</i></button>
+              <button class="commander-option" data-commander="jordan"><span class="commander-avatar jordan">JL</span><span><strong>Jordan Lee</strong><small>Incident commander</small></span><i>✓</i></button>
+              <button class="commander-option" data-commander="sam"><span class="commander-avatar sam">SK</span><span><strong>Sam Kim</strong><small>Incident commander</small></span><i>✓</i></button>
+              <button class="commander-option" data-commander="priya"><span class="commander-avatar priya">PN</span><span><strong>Priya Nair</strong><small>Incident commander</small></span><i>✓</i></button>
+            </div>
+            <button class="user-menu-item" data-user-action="toggle-availability" role="menuitem"><span class="availability-dot"></span>Availability <small id="availabilityLabel">On call</small><b>›</b></button>
+            <div class="availability-picker" id="availabilityPicker" hidden>
+              <button class="availability-option active" data-availability="On call"><i class="availability-dot"></i>On call</button>
+              <button class="availability-option" data-availability="Focus time"><i class="availability-dot focus"></i>Focus time</button>
+              <button class="availability-option" data-availability="Away"><i class="availability-dot away"></i>Away</button>
+            </div>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item" data-user-action="open-settings" role="menuitem"><span>⚙</span>Workspace settings</button>
+            <button class="user-menu-item" data-user-action="keyboard-shortcuts" role="menuitem"><span>⌘</span>Keyboard shortcuts <small>⌘ /</small></button>
+            <div class="user-menu-divider"></div>
+            <button class="user-menu-item logout" data-user-action="logout" role="menuitem"><span>↪</span>Sign out</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Open navigation">☰</button>
+          <div class="breadcrumbs"><span>Incident room</span><b>/</b><strong>INC-2048</strong></div>
+          <div class="topbar-actions">
+            <div class="connection-pill" id="connectionPill"><span class="pulse-dot"></span><span id="connectionText">Demo evidence</span></div>
+            <button class="icon-button" aria-label="Search">⌕</button>
+            <button class="icon-button" aria-label="Notifications">♢<i></i></button>
+            <button class="avatar-button" id="topAvatarButton" aria-label="Open user menu">AM</button>
+          </div>
+        </header>
+
+        <div class="content-wrap" id="contentWrap">
+          <section class="page-heading">
+            <div class="heading-main">
+              <div class="eyebrow"><span class="live-indicator"></span> LIVE INCIDENT <span class="eyebrow-divider">·</span> UPDATED 14 SEC AGO</div>
+              <div class="title-row">
+                <h1>Checkout latency spike</h1>
+                <span class="severity-badge"><span></span> SEV-2</span>
+              </div>
+              <p class="heading-description">Elevated p95 latency across checkout-api is impacting payment confirmation.</p>
+              <div class="heading-meta">
+                <span class="meta-chip"><span class="mini-icon">◎</span> checkout-api</span>
+                <span class="meta-chip"><span class="mini-icon">◷</span> Started 12:41 UTC</span>
+                <span class="meta-chip"><span class="mini-icon">♧</span> #inc-checkout</span>
+              </div>
+            </div>
+            <div class="heading-actions">
+              <button class="button secondary" id="shareButton"><span>↗</span> Share</button>
+              <button class="button primary" id="resolveButton"><span>✓</span> Resolve incident</button>
+            </div>
+          </section>
+
+          <div class="workspace-grid">
+            <section class="primary-column">
+              <article class="triage-card card-glow">
+                <div class="triage-header">
+                  <div class="triage-title-group">
+                    <div class="sparkle-mark">✦</div>
+                    <div><span class="section-kicker">SIGNALFORGE TRIAGE</span><h2>What we know so far</h2></div>
+                  </div>
+                  <div class="grounded-label"><span>●</span> GROUNDED <span class="info-mark">i</span></div>
+                </div>
+                <div class="triage-body" id="triageBody">
+                  <p class="triage-summary">A new checkout-api deployment preceded the latency increase. The strongest signal points to the payment-provider client path; inventory-api remains healthy.</p>
+                  <div class="triage-facts">
+                    <div class="fact-item"><span class="fact-dot amber"></span><div><strong>Likely change</strong><span>checkout-api <b>v2026.08.06-3</b> deployed 11 min before alert.</span></div></div>
+                    <div class="fact-item"><span class="fact-dot violet"></span><div><strong>Observed impact</strong><span>p95 latency at <b>4.8s</b> · error rate at <b>2.1%</b>.</span></div></div>
+                    <div class="fact-item"><span class="fact-dot teal"></span><div><strong>What is not affected</strong><span>inventory-api and catalog-cache are within normal bands.</span></div></div>
+                  </div>
+                  <div class="triage-footnote"><span>⌁</span> Claims are generated only from the evidence shown below.</div>
+                </div>
+                <div class="triage-loading" id="triageLoading" hidden><span></span><span></span><span></span><em>Correlating authorized evidence…</em></div>
+                <div class="triage-footer"><span id="triageStatus">3 evidence-backed signals</span><div class="footer-actions"><button class="feedback-button" data-feedback="useful">♧ Useful</button><button class="feedback-button" data-feedback="unsupported">Flag issue</button><button class="text-button" id="refreshTriage">Refresh <span>↻</span></button></div></div>
+              </article>
+
+              <article class="timeline-card panel-card">
+                <div class="panel-header"><div><span class="section-kicker">INCIDENT TIMELINE</span><h2>Signals around the incident</h2></div><button class="icon-button subtle" aria-label="Timeline options">•••</button></div>
+                <div class="timeline-wrap">
+                  <div class="timeline-line"></div>
+                  <div class="timeline-event selected"><div class="timeline-time">12:41 <small>UTC</small></div><div class="timeline-marker"><span></span></div><div class="timeline-copy"><div class="event-label"><b>Alert fired</b><span class="event-type alert">OBSERVABILITY</span></div><p>checkout-api p95 crossed 2s for 5 consecutive minutes.</p><small>Prometheus · checkout-latency-high</small></div></div>
+                  <div class="timeline-event"><div class="timeline-time">12:30 <small>UTC</small></div><div class="timeline-marker deploy"><span></span></div><div class="timeline-copy"><div class="event-label"><b>Deployment completed</b><span class="event-type deploy">DEPLOYMENT</span></div><p>checkout-api rolled forward to <strong>v2026.08.06-3</strong>.</p><small>Argo CD · production</small></div></div>
+                  <div class="timeline-event"><div class="timeline-time">12:22 <small>UTC</small></div><div class="timeline-marker change"><span></span></div><div class="timeline-copy"><div class="event-label"><b>Change merged</b><span class="event-type change">SOURCE CONTROL</span></div><p>Payment provider retry policy updated in <strong>checkout-service</strong>.</p><small>GitHub · PR #1842</small></div></div>
+                  <div class="timeline-event"><div class="timeline-time">11:58 <small>UTC</small></div><div class="timeline-marker note"><span></span></div><div class="timeline-copy"><div class="event-label"><b>Runbook updated</b><span class="event-type note">KNOWLEDGE</span></div><p>Added provider timeout diagnostic checklist.</p><small>Notion · checkout runbook</small></div></div>
+                </div>
+                <button class="timeline-more" id="timelineMore">View full timeline <span>→</span></button>
+              </article>
+
+              <article class="evidence-panel panel-card">
+                <div class="panel-header evidence-header"><div><span class="section-kicker">AUTHORIZED EVIDENCE</span><h2>Why this answer is grounded</h2></div><div class="evidence-count"><span id="evidenceCount">6</span> sources <span class="info-mark">i</span></div></div>
+                <div class="filter-row" id="filterRow">
+                  <button class="filter-chip active" data-filter="all">All evidence <span>6</span></button>
+                  <button class="filter-chip" data-filter="deployment"><span class="filter-dot amber"></span>Deployments <span>2</span></button>
+                  <button class="filter-chip" data-filter="observability"><span class="filter-dot violet"></span>Observability <span>2</span></button>
+                  <button class="filter-chip" data-filter="knowledge"><span class="filter-dot teal"></span>Knowledge <span>2</span></button>
+                </div>
+                <div class="evidence-list" id="evidenceList"></div>
+                <button class="load-more" id="loadMore">Show all evidence <span>↓</span></button>
+              </article>
+
+              <form class="ask-card panel-card" id="askForm">
+                <div class="ask-icon">✦</div>
+                <div class="ask-field"><label for="questionInput">Ask about this incident</label><input id="questionInput" autocomplete="off" placeholder="e.g. What changed immediately before the spike?" /></div>
+                <button class="ask-submit" type="submit" aria-label="Ask question">↗</button>
+              </form>
+            </section>
+
+            <aside class="right-column">
+              <article class="impact-card panel-card">
+                <div class="panel-header compact"><div><span class="section-kicker">SERVICE IMPACT</span><h2>Checkout ecosystem</h2></div><span class="impact-live">LIVE</span></div>
+                <div class="impact-ring-row"><div class="impact-ring"><div><strong>2.1%</strong><span>error rate</span></div></div><div class="impact-big"><strong>4.8s</strong><span>p95 latency</span><small>↑ 310% from baseline</small></div></div>
+                <div class="service-list">
+                  <div class="service-row"><span class="service-status critical"></span><div class="service-name"><strong>checkout-api</strong><small>Primary service</small></div><span class="service-value critical-text">Degraded</span></div>
+                  <div class="service-row"><span class="service-status warning"></span><div class="service-name"><strong>payment-provider</strong><small>External dependency</small></div><span class="service-value warning-text">Elevated</span></div>
+                  <div class="service-row"><span class="service-status healthy"></span><div class="service-name"><strong>inventory-api</strong><small>Downstream service</small></div><span class="service-value healthy-text">Healthy</span></div>
+                  <div class="service-row"><span class="service-status healthy"></span><div class="service-name"><strong>catalog-cache</strong><small>Downstream service</small></div><span class="service-value healthy-text">Healthy</span></div>
+                </div>
+                <button class="panel-link" id="serviceMapButton">Open service map <span>→</span></button>
+              </article>
+
+              <article class="signal-card panel-card">
+                <div class="panel-header compact"><div><span class="section-kicker">SIGNAL SNAPSHOT</span><h2>Latency by minute</h2></div><span class="window-label">Last 30 min</span></div>
+                <div class="chart-wrap"><svg class="signal-chart" viewBox="0 0 320 116" preserveAspectRatio="none" aria-label="Latency signal chart"><defs><linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#9d7aff" stop-opacity=".32"/><stop offset="1" stop-color="#9d7aff" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="90" x2="320" y2="90"/><line x1="0" y1="58" x2="320" y2="58"/><line x1="0" y1="26" x2="320" y2="26"/><path class="chart-area" d="M0,87 C22,85 35,88 50,82 S75,84 91,78 S115,81 130,76 S148,79 161,73 S172,67 182,71 S193,56 204,61 S218,48 228,54 S242,34 252,41 S264,29 274,34 S289,14 302,20 S313,7 320,9 L320,116 L0,116 Z"/><path class="chart-line" d="M0,87 C22,85 35,88 50,82 S75,84 91,78 S115,81 130,76 S148,79 161,73 S172,67 182,71 S193,56 204,61 S218,48 228,54 S242,34 252,41 S264,29 274,34 S289,14 302,20 S313,7 320,9"/><circle cx="320" cy="9" r="4"/></svg><div class="chart-labels"><span>12:10</span><span>12:25</span><span>12:41</span></div></div>
+                <div class="signal-legend"><span><i class="legend-line latency"></i>p95 latency</span><span><i class="legend-line baseline"></i>baseline</span></div>
+              </article>
+
+              <article class="activity-card panel-card">
+                <div class="panel-header compact"><div><span class="section-kicker">INCIDENT ACTIVITY</span><h2>Team presence</h2></div><span class="presence-count">4 online</span></div>
+                <div class="avatar-stack"><span class="presence-avatar purple">AM</span><span class="presence-avatar blue">JR</span><span class="presence-avatar orange">SK</span><span class="presence-avatar green">+1</span></div>
+                <div class="activity-line"><span class="activity-dot"></span><div><strong>Jordan Lee</strong> added a note <small>2 min ago</small></div></div>
+                <div class="activity-line"><span class="activity-dot violet"></span><div><strong>Sam Kim</strong> joined the incident <small>5 min ago</small></div></div>
+                <button class="panel-link" id="activityButton">Open incident channel <span>↗</span></button>
+              </article>
+            </aside>
+          </div>
+        </div>
+      </main>
+    </div>
+    <section class="signed-out-screen" id="signedOutScreen" hidden aria-live="polite">
+      <div class="signed-out-card">
+        <div class="signed-out-brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>SignalForge<span>·</span></strong><small>incident intelligence</small></div></div>
+        <span class="section-kicker">DEMO WORKSPACE</span>
+        <h1>You have signed out</h1>
+        <p>Choose an incident commander to start a new authorized demo session.</p>
+        <div class="signed-out-commanders">
+          <button data-commander="alex"><span class="commander-avatar alex">AM</span><span><strong>Alex Morgan</strong><small>Incident commander</small></span><b>Continue</b></button>
+          <button data-commander="jordan"><span class="commander-avatar jordan">JL</span><span><strong>Jordan Lee</strong><small>Incident commander</small></span><b>Continue</b></button>
+          <button data-commander="sam"><span class="commander-avatar sam">SK</span><span><strong>Sam Kim</strong><small>Incident commander</small></span><b>Continue</b></button>
+          <button data-commander="priya"><span class="commander-avatar priya">PN</span><span><strong>Priya Nair</strong><small>Incident commander</small></span><b>Continue</b></button>
+        </div>
+      </div>
+    </section>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js?v=20260808-signalforge"></script>
+  </body>
+</html>

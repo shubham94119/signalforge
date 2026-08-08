@@ -1,0 +1,30 @@
+{
+  "version": "smoke-v1",
+  "split": "smoke",
+  "cases": [
+    {
+      "case_id": "authorized-deployment",
+      "query": {
+        "tenant_id": "demo",
+        "user_id": "alice",
+        "text": "what changed before payments latency increased",
+        "service_ids": ["payments"],
+        "environment": "prod"
+      },
+      "relevant_evidence_ids": ["demo-source:deploy-42:1"],
+      "expected_claim_terms": ["version 42"]
+    },
+    {
+      "case_id": "forbidden-to-bob",
+      "query": {
+        "tenant_id": "demo",
+        "user_id": "bob",
+        "text": "what changed before payments latency increased",
+        "service_ids": ["payments"],
+        "environment": "prod"
+      },
+      "forbidden_evidence_ids": ["demo-source:deploy-42:1"],
+      "must_abstain": true
+    }
+  ]
+}
