@@ -63,9 +63,17 @@ def create_app(store: Any | None = None) -> Any:
         "http://localhost:5173",
         os.getenv("UI_ORIGIN", "").strip(),
     ]
+    # Render may assign a short suffix to free static-site hostnames. Keep the
+    # staging demo usable while production remains exact-origin configured.
+    allowed_origin_regex = (
+        r"^https://signalforge-web(?:-[a-z0-9]+)?\.onrender\.com$"
+        if runtime_environment == "staging"
+        else None
+    )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[origin for origin in allowed_origins if origin],
+        allow_origin_regex=allowed_origin_regex,
         allow_credentials=False,
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["Content-Type", "X-Tenant-ID", "X-User-ID", "X-Groups"],
