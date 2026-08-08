@@ -18,7 +18,7 @@ services:
       - key: INCIDENT_DB_PATH
         value: /tmp/signalforge-evidence.db
       - key: UI_ORIGIN
-        value: https://signalforge-web.onrender.com
+        value: https://signalforge-web-0b0l.onrender.com
 
   - type: web
     name: signalforge-web
